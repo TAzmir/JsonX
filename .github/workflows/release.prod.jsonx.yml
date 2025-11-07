@@ -1,0 +1,52 @@
+name: release.prod.jsonx
+
+on:
+  push:
+    tags:
+      - '*' # Run when any tag is pushed
+
+jobs:
+  pack_and_publish:
+    name: Pack and publish to NuGet.org
+    runs-on: ubuntu-latest
+
+    env:
+      BUILD_CONFIGURATION: Release
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags and versioning
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore src/JsonX.csproj
+
+      - name: Get package version from tag
+        id: version
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          CLEAN_TAG=${TAG#v} # remove leading 'v' if present
+          echo "Package version: $CLEAN_TAG"
+          echo "version=$CLEAN_TAG" >> $GITHUB_OUTPUT
+
+      - name: Pack NuGet package
+        run: |
+          dotnet pack src/JsonX.csproj \
+            --configuration $BUILD_CONFIGURATION \
+            --output ./packages \
+            /p:PackageVersion=${{ steps.version.outputs.version }}
+
+      - name: Publish package to NuGet.org
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          dotnet nuget push "./packages/**/*.nupkg" \
+            --api-key $NUGET_API_KEY \
+            --source "https://api.nuget.org/v3/index.json" \
+            --skip-duplicate
