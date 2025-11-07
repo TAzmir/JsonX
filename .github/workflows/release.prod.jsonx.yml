@@ -19,13 +19,13 @@ jobs:
         with:
           fetch-depth: 0  # Fetch all history for tags and versioning
 
-      - name: Setup .NET 9
+      - name: Setup sdk
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore src/JsonX.csproj
+        run: dotnet restore **/JsonX.csproj
 
       - name: Get package version from tag
         id: version
