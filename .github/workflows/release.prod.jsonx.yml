@@ -25,7 +25,7 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore **/JsonX.csproj
+        run: dotnet restore src/JsonX/JsonX.csproj
 
       - name: Get package version from tag
         id: version
@@ -37,7 +37,7 @@ jobs:
 
       - name: Pack NuGet package
         run: |
-          dotnet pack src/JsonX.csproj \
+          dotnet pack src/JsonX/JsonX.csproj \
             --configuration $BUILD_CONFIGURATION \
             --output ./packages \
             /p:PackageVersion=${{ steps.version.outputs.version }}
