@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.36105.23 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonX", "JsonX\JsonX.csproj", "{E12EA0BD-F08E-4863-9CF5-CA4137312946}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B29FD6D7-C744-4B3B-BF81-2885BDB6E5B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonX.UnitTests", "JsonX.UnitTests\JsonX.UnitTests.csproj", "{54C171A1-24B1-4A0E-B33F-ADBD7D55DC63}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E12EA0BD-F08E-4863-9CF5-CA4137312946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E12EA0BD-F08E-4863-9CF5-CA4137312946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E12EA0BD-F08E-4863-9CF5-CA4137312946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E12EA0BD-F08E-4863-9CF5-CA4137312946}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54C171A1-24B1-4A0E-B33F-ADBD7D55DC63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54C171A1-24B1-4A0E-B33F-ADBD7D55DC63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54C171A1-24B1-4A0E-B33F-ADBD7D55DC63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54C171A1-24B1-4A0E-B33F-ADBD7D55DC63}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E12EA0BD-F08E-4863-9CF5-CA4137312946} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{54C171A1-24B1-4A0E-B33F-ADBD7D55DC63} = {B29FD6D7-C744-4B3B-BF81-2885BDB6E5B0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACD11C8F-83A1-48E0-B62C-C13282E4D820}
+	EndGlobalSection
+EndGlobal
