@@ -7,7 +7,7 @@ on:
 
 jobs:
   pack_and_publish:
-    name: Pack and publish to NuGet.org
+    name: Release JsonX
     runs-on: ubuntu-latest
     permissions: write-all
 
@@ -15,20 +15,20 @@ jobs:
       BUILD_CONFIGURATION: Release
 
     steps:
-      - name: Checkout code
+      - name: checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Fetch all history for tags and versioning
 
-      - name: Setup .net core sdk
+      - name: setup sdk
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
 
-      - name: Restore dependencies
+      - name: dotnet restore
         run: dotnet restore src/JsonX/JsonX.csproj
 
-      - name: Get package version from tag
+      - name: get version
         id: version
         run: |
           TAG=${GITHUB_REF#refs/tags/}
@@ -36,22 +36,21 @@ jobs:
           echo "Package version: $CLEAN_TAG"
           echo "version=$CLEAN_TAG" >> $GITHUB_OUTPUT
 
-      - name: Pack NuGet package
+      - name: pack
         run: |
           dotnet pack src/JsonX/JsonX.csproj \
             --configuration $BUILD_CONFIGURATION \
             --output ./packages \
             /p:PackageVersion=${{ steps.version.outputs.version }}
       
-      - name: NuGet login
+      - name: login
         uses: NuGet/login@v1
         id: login
         with:
           user: ${{ secrets.NUGET_USER }}
       
-      - name: Publish to NuGet.org
-        uses: NuGet/publish-nuget@v3
-        with:
-          source-url: https://api.nuget.org/v3/index.json
-          packages-to-push: ./packages/**/*.nupkg
-          skip-duplicate: true
+      - name: publish
+        run: |
+          dotnet nuget push "./packages/**/*.nupkg" \
+          --api-key ${{steps.login.outputs.NUGET_API_KEY}} \
+          --source "https://api.nuget.org/v3/index.json"
