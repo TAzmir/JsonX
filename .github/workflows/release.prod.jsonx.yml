@@ -9,8 +9,7 @@ jobs:
   pack_and_publish:
     name: Pack and publish to NuGet.org
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
+    permissions: write-all
 
     env:
       BUILD_CONFIGURATION: Release
